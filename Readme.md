@@ -2,13 +2,13 @@
 
 1. Insialisasi
    git init -> menginisialisasi direktori di komputer lokal yang sedang digunakan sebagai repositori Git.
-   git clone <HTTPS url git repository> -> mengambil seluruh isi repositori dari remote environment melalui HTTPS url.
-   git clone <SSH key git repository> -> mengambil seluruh isi repositori dari remote environment melalui SSH key.
+   git clone <HTTPS-url-git-repository> -> mengambil seluruh isi repositori dari remote environment melalui HTTPS url.
+   git clone <SSH-key-git-repository> -> mengambil seluruh isi repositori dari remote environment melalui SSH key.
 
 2. Stage & Snapshot
    git status -> menampilkan file yang dimodifikasi di direktori aktif, dan file yang belum terlacak (track) untuk commit berikutnya.
    git add . -> menambahkan semua file yang ada pada direktori aktif ke remote.
-   git add <nama file> -> menambahkan file tertentu yang ada pada direktori aktif ke remote.
+   git add <nama-file> -> menambahkan file tertentu yang ada pada direktori aktif ke remote.
    git commit -m "<pesan>" -> membuat perubahan di remote environment, dan menampilkan pesan sebagai informasi dari apa yang sudah di-commit.
    git diff -> menampilkan perbedaan pada apa yang telah diubah namun bukan staged.
    git diff --staged -> menampilkan perbedaan pada staged namun belum di-commit.
@@ -18,23 +18,23 @@
 
 5. Reset & Rewrite History
    git rebase <branch> -> apply commit-commit pada branch aktif sebelum commit tertentu.
-   git reset --hard <commit hash> -> reset ke log commit tertentu. commit hash didapatkan dari 'git log' command.
+   git reset --hard <commit-hash> -> reset ke log commit tertentu. commit hash didapatkan dari 'git log' command.
    
 6. Branch & Merge
    git branch -> menampilkan daftar branch. tanda * akan muncul di sebelah branch yang sedang aktif.
-   git checkout -b <nama branch yang akan dibuat> -> membuat branch baru, dan otomatis berpindah ke branch yang baru dibuat.
-   git checkout <nama branch> -> pindah ke branch tertentu.
+   git checkout -b <nama-branch-yang-akan-dibuat> -> membuat branch baru, dan otomatis berpindah ke branch yang baru dibuat.
+   git checkout <nama-branch> -> pindah ke branch tertentu.
    git merge <branch> -> menggabungkan riwayat branch yang ditentukan ke branch aktif.
    
 7. Inspect & Compare
    git log -> menampilkan semua riwayat commit pada branch aktif.
-   git log <branch B>..<branch A> -> menampilkan riwayat commit pada branch A yang tidak ada pada branch B.
+   git log <branchB>..<branchA> -> menampilkan riwayat commit pada branch A yang tidak ada pada branch B.
    git log --follow <file> -> menampilkan riwayat commit perubahan file, termasuk rename file.
    git diff branchB...branchA -> menampilkan perbedaan dari riwayat commit branch A yang tidak ada pada branch B.
    
 8. Melacak Perubahan pada Path
    git rm <file> -> menghapus file pada project dan melakukan penghapusan juga untuk commit.
-   git mv <path tertentu> <path tujuan> -> memindahkan file-file pada path tertentu ke path tujuan.
+   git mv <path-tertentu> <path-tujuan> -> memindahkan file-file pada path tertentu ke path tujuan.
    git log --stat -M -> menampilkan semua riwayat commit dengan indikasi path apapun yang dipindahkan.
    
 9. Share & Update
@@ -56,7 +56,7 @@
 1. HTTPS url
    - Buka terminal, dan arahkan ke direktori yang ingin dijadikan destinasi penyimpanan repositori dari GitHub.
    - Salin HTTPS url repositori dari GitHub.
-   - lalu jalankan command "git clone <HTTPS url git repository>"
+   - lalu jalankan command "git clone <HTTPS-url-git-repository>"
 
 2. SSH key
    - Buka terminal dan ketik ssh-keygen. (pastikan sudah melakukan git init pada direktori)
