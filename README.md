@@ -37,8 +37,13 @@ Aplikasi kemudian kembali ke LoginScreen, tempat pengguna bisa login dengan akun
 
 SCREENSHOT APLIKASI
 - LoginScreen
+
 ![LoginScreen](https://github.com/user-attachments/assets/fe734804-1c42-4a84-987a-1094431e8403)
+
 - RegisterScreen
+
 ![RegisterScreen](https://github.com/user-attachments/assets/193957f3-6a64-42da-adfd-c7a9556ecd07)
+
 - HomeScreen (Main Page)
+
 ![HomeScreen](https://github.com/user-attachments/assets/cb078f7e-691c-4222-9aaf-d049b8ae782f)
