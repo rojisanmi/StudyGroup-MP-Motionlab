@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -42,9 +43,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.w2_androidstudygroup.ui.theme.MotionColor
+import com.example.w2_androidstudygroup.ui.theme.parkinsansFamily
+import com.example.w2_androidstudygroup.ui.theme.robotoFamily
 
 @Composable
-fun LoginScreen(navController: NavController){
+fun LoginScreen(navController: NavController? = null){
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -87,7 +91,12 @@ fun LoginScreen(navController: NavController){
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        Text(text = "Login To Your Account", fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 25.sp)
+                        Text(
+                            text = "Login To Your Account",
+                            fontFamily = parkinsansFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 25.sp
+                        )
 
                         Spacer(modifier = Modifier.height(16.dp))
 
@@ -140,11 +149,11 @@ fun LoginScreen(navController: NavController){
                                     Toast.LENGTH_LONG
                                 ).show()
 
-                                navController.navigate(HomeScreen)
+                                navController?.navigate(HomeScreen)
                             },
                             colors = ButtonDefaults.buttonColors(Color.Red)
                         ) {
-                            Text("Login")
+                            Text("Login", fontFamily = parkinsansFamily)
                         }
 
                         Spacer(modifier = Modifier.height(2.dp))
@@ -158,7 +167,7 @@ fun LoginScreen(navController: NavController){
                                     Toast.LENGTH_LONG
                                 ).show()
 
-                                navController.navigate(RegisterScreen)
+                                navController?.navigate(RegisterScreen)
                             }
                         ) {
                             Text("Don't have account yet?", color = Color.Black)
@@ -172,128 +181,8 @@ fun LoginScreen(navController: NavController){
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun LoginScreen(){
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
-    var context = LocalContext.current
-
-    Scaffold(
-        content = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ){
-                Image(
-                    painter = painterResource(R.drawable.background_image),
-                    contentDescription = "Background Image",
-                    contentScale = ContentScale.FillHeight,
-                    modifier = Modifier.fillMaxSize()
-                )
-
-                Card(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .clip(RoundedCornerShape(4.dp))
-                        .padding(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(it)
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Image(
-                            painter = painterResource(R.drawable.motion_logo),
-                            contentDescription = "Motion logo"
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(text = "Login To Your Account", fontFamily = FontFamily.SansSerif, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = username,
-                            onValueChange = {
-                                username = it
-                            },
-                            label = {
-                                Text("Username")
-                            }
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        OutlinedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            value = password,
-                            onValueChange = {
-                                password = it
-                            },
-                            trailingIcon = {
-                                val icon = if(passwordVisible) R.drawable.visibility_off else R.drawable.visibility
-                                IconButton(
-                                    onClick = {
-                                        passwordVisible = !passwordVisible
-                                    }
-                                ) {
-                                    Icon(
-                                        painter = painterResource(icon),
-                                        contentDescription = "Show Password"
-                                    )
-                                }
-                            },
-                            visualTransformation = if(passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                            label = {
-                                Text("Password")
-                            }
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        Button(
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = {
-                                Toast.makeText(
-                                    context,
-                                    "Akun dengan username = $username telah berhasil login",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            },
-                            colors = ButtonDefaults.buttonColors(Color.Red)
-                        ) {
-                            Text("Login")
-                        }
-
-                        Spacer(modifier = Modifier.height(2.dp))
-
-                        TextButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = {
-                                Toast.makeText(
-                                    context,
-                                    "Masuk ke register page",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        ) {
-                            Text("Don't have account yet?", color = Color.Black)
-                        }
-
-                        Spacer(modifier = Modifier.height(4.dp))
-                    }
-                }
-            }
-        }
-    )
+fun PreviewLoginScreen() {
+    LoginScreen(navController = null)
 }

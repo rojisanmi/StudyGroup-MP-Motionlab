@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.w2_androidstudygroup.ui.theme.W2_AndroidStudyGroupTheme
 import kotlinx.serialization.Serializable
 
@@ -27,6 +28,10 @@ class MainActivity : ComponentActivity() {
                     composable<RegisterScreen> {
                         RegisterScreen(navController)
                     }
+                    composable<MemberDetail> {
+                        val args = it.toRoute<MemberDetail>()
+                        MemberDetailScreen(args)
+                    }
                 }
 
             }
@@ -42,3 +47,6 @@ object HomeScreen
 
 @Serializable
 object RegisterScreen
+
+@Serializable
+data class MemberDetail(val memberName : String, val memberRole : String, val memberImageUrl : String)

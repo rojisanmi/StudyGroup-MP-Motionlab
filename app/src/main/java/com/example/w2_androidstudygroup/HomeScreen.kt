@@ -1,242 +1,252 @@
 package com.example.w2_androidstudygroup
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.w2_androidstudygroup.ui.theme.parkinsansFamily
+
+data class NavigationItem(
+    val title: String,
+    val iconSelected: ImageVector,
+    val iconUnselected: ImageVector
+)
 
 @Composable
-fun HomeScreen(navController: NavController) {
-    var context = LocalContext.current
+fun HomeScreen(navController: NavController? = null) {
+    val screens = listOf(
+        NavigationItem(
+            "Home",
+            Icons.Filled.Home,
+            Icons.Outlined.Home
+        ),
+        NavigationItem(
+            "Profile",
+            Icons.Filled.Person,
+            Icons.Outlined.Person
+        ),
+        NavigationItem(
+            "Settings",
+            Icons.Filled.Settings,
+            Icons.Outlined.Settings
+        ),
+    )
+    var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                screens.forEachIndexed { index, s ->
+                    NavigationBarItem(
+                        icon = {
+                            if (selectedItemIndex == index) Icon(
+                                s.iconSelected,
+                                contentDescription = null
+                            ) else Icon(
+                                s.iconUnselected,
+                                contentDescription = null
+                            )
+                        },
+                        label = { Text(s.title) },
+                        selected = selectedItemIndex == index,
+                        onClick = {
+                            selectedItemIndex = index
+                        }
+                    )
+                }
+            }
+        },
         content = {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.LightGray)
                     .padding(it)
+                    .padding(16.dp)
             ) {
-                Image(
-                    painter = painterResource(R.drawable.background_image),
-                    contentDescription = "Background",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
-                )
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Selamat Datang di Main Page",
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Text(
-                                text = "Materi yang dipelajari di week 2:",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .background(color = Color.LightGray)
-                                    .padding(12.dp)
-                            ) {
-                                Row(modifier = Modifier.fillMaxSize()) {
-                                    Box(
-                                        modifier = Modifier
-                                            .size(76.dp)
-                                            .background(color = Color.Gray)
-                                    )
-
-                                    Spacer(modifier = Modifier.width(10.dp))
-
-                                    Column {
-                                        Text(
-                                            "Box",
-                                            fontSize = 18.sp,
-                                            fontWeight = FontWeight.SemiBold
-                                        )
-
-                                        Text("Mengatur elemen satu dengan yang lainnya.")
-                                    }
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            Text(
-                                text = "Row dan Column digunakan untuk layout horizontal dan vertikal.",
-                                fontSize = 16.sp
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-                    
-                    Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            Toast.makeText(
-                                context,
-                                "Logout berhasil",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            navController.navigateUp()
-                        },
-                        colors = ButtonDefaults.buttonColors(Color.Red)
-                    ) {
-                        Text("Logout")
-                    }
+                when (selectedItemIndex) {
+                    0 -> HomeContent(navController = navController)
+                    1 -> ProfileContent()
+                    2 -> SettingsContent()
                 }
             }
         }
     )
 }
 
-@Preview
 @Composable
-fun HomeScreen() {
-    var context = LocalContext.current
+fun HomeContent(navController: NavController? = null) {
+    val members = listOf(
+        MemberModel(
+            "Wildan Syukri Niam",
+            "Coordinator",
+            "wildan_niam"
+        ),
+        MemberModel(
+            "Moses Eliyada",
+            "Vice Coordinator",
+            "moses_eliyada"
+        ),
+        MemberModel(
+            "Puri Lalita",
+            "Administration",
+            "puri_lalita"
+        ),
+        MemberModel(
+            "M. Darrel Prawira",
+            "Assistant Study Group",
+            "darrel_prawira"
+        ),
+        MemberModel(
+            "Adelia Nasywa",
+            "Assistant Study Group",
+            "adelia_nasywa"
+        ),
+        MemberModel(
+            "M. Raihan Syahrin",
+            "Assistant Study Group",
+            "raihan_syahrin"
+        ),
+        MemberModel(
+            "M. Arzu Kirana",
+            "Assistant Study Group",
+            "arzu_kirana"
+        ),
+        MemberModel(
+            "Reinhard Efraim",
+            "Assistant Study Group",
+            "reinhard_efraim"
+        ),
+    )
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        content = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.LightGray)
-                    .padding(it)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.background_image),
-                    contentDescription = "Background",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        LazyColumn {
+            items(members) { member ->
+                MemberItem(
+                    member.name,
+                    member.role,
+                    member.imageUrl,
+                    onClick = {
+                        navController?.navigate(
+                            MemberDetail(
+                                memberName = member.name,
+                                memberRole = member.role,
+                                memberImageUrl = member.imageUrl
+                            )
+                        )
+                    }
                 )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Selamat Datang di Main Page",
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
-                        ) {
-                            Text(
-                                text = "Materi yang dipelajari di week 2:",
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(100.dp)
-                                    .background(color = Color.LightGray)
-                                    .padding(12.dp)
-                            ) {
-                                Row(modifier = Modifier.fillMaxSize()) {
-                                    Box(
-                                        modifier = Modifier
-                                            .size(76.dp)
-                                            .background(color = Color.Gray)
-                                    )
-
-                                    Spacer(modifier = Modifier.width(10.dp))
-
-                                    Column {
-                                        Text(
-                                            "Box",
-                                            fontSize = 18.sp,
-                                            fontWeight = FontWeight.SemiBold
-                                        )
-
-                                        Text("Mengatur elemen satu dengan yang lainnya.")
-                                    }
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(12.dp))
-
-                            Text(
-                                text = "Row dan Column digunakan untuk layout horizontal dan vertikal.",
-                                fontSize = 16.sp
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            Toast.makeText(
-                                context,
-                                "Logout berhasil",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        },
-                        colors = ButtonDefaults.buttonColors(Color.Red)
-                    ) {
-                        Text("Logout")
-                    }
-                }
             }
         }
-    )
+    }
+}
+
+@Composable
+fun MemberItem(
+    name: String,
+    role: String,
+    imageUrl: String,
+    onClick: () -> Unit,
+) {
+    Card(
+        modifier = Modifier
+            .padding(bottom = 16.dp)
+            .fillMaxWidth(),
+        onClick = onClick
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+        ) {
+            Image(
+                painter = painterResource(
+                    id = when (imageUrl) {
+                        "wildan_niam" -> R.drawable.wildan_niam
+                        "moses_eliyada" -> R.drawable.moses_eliyada
+                        "puri_lalita" -> R.drawable.puri_lalita
+                        "darrel_prawira" -> R.drawable.darrel_prawira
+                        "adelia_nasywa" -> R.drawable.adelia_nasywa
+                        "raihan_syahrin" -> R.drawable.raihan_syahrin
+                        "arzu_kirana" -> R.drawable.arzu_kirana
+                        "reinhard_efraim" -> R.drawable.reinhard_efraim
+                        else -> android.R.drawable.ic_menu_gallery // Default image
+                    }
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(76.dp)
+                    .padding(4.dp),
+            )
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Column {
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Text(
+                    name,
+                    fontFamily = parkinsansFamily,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                )
+
+                Spacer(modifier = Modifier.height(3.dp))
+
+                Text(
+                    role,
+                    fontFamily = parkinsansFamily,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal
+                )
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewHomeScreen() {
+    HomeScreen(navController = null)
 }
