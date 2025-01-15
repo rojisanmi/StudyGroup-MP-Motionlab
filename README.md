@@ -29,6 +29,7 @@ Navigasi adalah proses perpindahan antar layar (composable) dalam aplikasi. Deng
      - Mengakses data navigasi yang diterima.
 
 ## Jenis Navigasi
+
 ### 1. Navigasi Dasar
 - Membuat `NavHost` yang mendefinisikan rute.
 - Contoh:
@@ -38,3 +39,46 @@ Navigasi adalah proses perpindahan antar layar (composable) dalam aplikasi. Deng
       composable("screenA") { ScreenA(navController) }
       composable("screenB") { ScreenB() }
   }
+  ```
+
+### 2. Navigasi dengan Parameter
+- Mengirimkan data antar layar dengan mendefinisikan parameter di rute.
+- Contoh:
+  ```kotlin
+  composable(
+      "screenB/{message}",
+      arguments = listOf(navArgument("message") { type = NavType.StringType })
+  ) { backStackEntry ->
+      val message = backStackEntry.arguments?.getString("message")
+      ScreenB(message)
+  }
+  ```
+
+### 3. Hierarki Navigasi
+- **Single Navigation Graph**  
+  Cocok untuk aplikasi sederhana, semua rute berada dalam satu `NavHost`.
+- **Nested Navigation Graphs**  
+  Digunakan untuk aplikasi modular dengan struktur navigasi kompleks.
+- **Multiple Backstack Navigation**  
+  Setiap bagian aplikasi memiliki backstack sendiri, misalnya untuk `BottomNavigation`.
+
+## Manajemen State dalam Navigasi
+State management memastikan data tetap terjaga meskipun terjadi perubahan layar atau konfigurasi.  
+
+### 1. **SavedStateHandle**  
+Menyimpan data di stack navigasi.
+
+### 2. **ViewModel**  
+Mempertahankan state antar layar yang lebih kompleks.
+
+### 3. **remember dan rememberSaveable**  
+- `remember`: Menyimpan state sementara.
+- `rememberSaveable`: Menyimpan state lebih permanen meskipun layar dirotasi.
+
+## Kesimpulan
+Jetpack Compose mempermudah implementasi navigasi dengan pendekatan yang modular dan integrasi manajemen state yang baik. Dengan menggunakan komponen seperti `NavHost` dan `NavController`, navigasi menjadi lebih terstruktur dan mudah dikembangkan.
+
+## Repository
+Branch tugas minggu ini dapat diakses pada link berikut:
+[GitHub Repository](#)
+
