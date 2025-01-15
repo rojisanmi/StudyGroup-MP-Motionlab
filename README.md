@@ -77,8 +77,3 @@ Mempertahankan state antar layar yang lebih kompleks.
 
 ## Kesimpulan
 Jetpack Compose mempermudah implementasi navigasi dengan pendekatan yang modular dan integrasi manajemen state yang baik. Dengan menggunakan komponen seperti `NavHost` dan `NavController`, navigasi menjadi lebih terstruktur dan mudah dikembangkan.
-
-## Repository
-Branch tugas minggu ini dapat diakses pada link berikut:
-[GitHub Repository](#)
-
