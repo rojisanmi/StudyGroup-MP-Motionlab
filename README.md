@@ -173,5 +173,8 @@ Firebase adalah platform yang lengkap untuk mendukung pengembangan aplikasi mode
 
 ## Screenshot Aplikasi
 1. Menambahkan note
-
+![Image](https://github.com/user-attachments/assets/0ef19f1a-5aac-4b5a-8741-bd44cf4b999d)
 2. Menghapus note
+![Image](https://github.com/user-attachments/assets/953f865b-4c55-46c9-a6a8-a38a95f6f0a0)
+3. Tampilan setelah note dihapus
+![Image](https://github.com/user-attachments/assets/ca17a8ad-d63a-407e-8ffb-4e01ca70c0cd)
