@@ -1,2 +1,2 @@
 # StudyGroup-MP-Motionlab
-Repository ini berisi tugas study group divisi Mobile Programmer selama intern di Motion Lab
+This repository contains the study group assignments from the Mobile Programmer division during their internship at Motion Lab
